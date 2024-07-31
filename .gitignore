@@ -35,3 +35,5 @@ zsdoc/data
 !/tests/_output/.gitkeep
 
 .idea
+
+var/

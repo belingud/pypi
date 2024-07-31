@@ -25,12 +25,17 @@ Note:
   The 'ping' command can accept either a mirror shortname or a direct URL.
   The 'use' command requires a valid shortname from the list of supported mirrors."
 
-  local command=$1
-  shift
-
   print_help() {
     echo "$help"
   }
+
+  local command=$1
+  if [[ -z $command ]]; then
+    print_help
+    return
+  fi
+  shift
+
 
   list_mirrors() {
     echo "Supported PyPI mirrors:"

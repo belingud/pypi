@@ -1,22 +1,39 @@
 # PyPI 插件使用指南
 
+中文 | [English](./README_en.md)
+
+<!-- TOC -->
+* [PyPI 插件使用指南](#pypi-插件使用指南)
+  * [简介](#简介)
+  * [安装](#安装)
+  * [使用](#使用)
+    * [基本命令](#基本命令)
+    * [命令详情](#命令详情)
+    * [例子](#例子)
+  * [支持的镜像](#支持的镜像)
+  * [注意事项](#注意事项)
+  * [帮助](#帮助)
+  * [License](#license)
+<!-- TOC -->
+
 ## 简介
 
-这是一个用于管理 PyPI 镜像的 oh-my-zsh 插件。该插件提供了几个便捷的命令，允许用户列出可用的 PyPI 镜像、切换镜像，以及测试镜像的网络连通性。
+这是一个用于管理PyPI镜像的 oh-my-zsh 插件。该插件提供了几个便捷的命令，允许用户列出可用的PyPI镜像、切换镜像，以及测试镜像的网络连通性。
 
 ## 安装
 
 使用`git`
 
 ```shell
-git clone https://github.com/belingud/ohmyzsh-pypi $ZSH_HOME
+git clone https://github.com/belingud/pypi ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/pypi
 ```
 
-将插件脚本复制到 ~/.oh-my-zsh/custom/plugins/ 目录下，然后在 ~/.zshrc 中添加插件名称即可。例如：
+或者将插件脚本手动复制到 ~/.oh-my-zsh/custom/plugins/ 目录下，然后在 ~/.zshrc 中添加插件名称即可。例如：
 
 ```shell
 plugins=(... pypi ...)
 ```
+
 ## 使用
 
 ### 基本命令
@@ -26,16 +43,16 @@ plugins=(... pypi ...)
     ```shell
     pypi list
     ```
-    该命令列出所有支持的 PyPI 镜像及其 URL。
+   该命令列出所有支持的 PyPI 镜像及其 URL。
 
 2. **切换镜像**
 
     ```shell
     pypi use <shortname>
     ```
-    
-    使用指定的镜像，<shortname> 是镜像的简写名。例如：
-    
+
+   使用指定的镜像，<shortname> 是镜像的简写名。例如：
+
     ```shell
     pypi use aliyun
     ```
@@ -45,14 +62,14 @@ plugins=(... pypi ...)
    ```shell
    pypi ping <shortname|url>
    ```
-   
+
    检查指定镜像的网络连通性，`<shortname>` 是镜像的简写名，也可以直接使用镜像的`URL`。例如：
-   
+
    ```shell
    pypi ping tsinghua
    ```
    或
-   
+
    ```shell
    pypi ping https://pypi.org/simple/
    ```
@@ -82,7 +99,9 @@ pypi use aliyun
 ```shell
 pypi ping tsinghua
 ```
+
 ## 支持的镜像
+
 以下是一些支持的 PyPI 镜像及其简写名：
 
 - pypi: https://pypi.org/simple/
@@ -113,3 +132,7 @@ pypi <command> -h/--help
 ```shell
 pypi use -h
 ```
+
+## License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
