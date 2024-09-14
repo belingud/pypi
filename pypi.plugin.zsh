@@ -8,6 +8,7 @@ Commands:
   list                 List all supported PyPI mirrors and their URLs.
   use <shortname>      Switch to a specified PyPI mirror. Replace <shortname> with the desired mirror's shortname.
   ping <shortname|url> Check network connectivity to a specified PyPI mirror or URL.
+  cur                  Print current pypi index
 
 Options:
   -h, --help           Show this help message and exit.
@@ -17,6 +18,7 @@ Examples:
   pypi use aliyun      # Switches to the Alibaba Cloud mirror
   pypi ping tsinghua   # Checks connectivity to the Tsinghua University mirror
   pypi ping https://pypi.org/simple/  # Checks connectivity to the official PyPI URL
+  pypi cur             # Will print current pypi index
 
 For more details on each command, you can run:
   pypi <command> -h/--help
@@ -156,11 +158,29 @@ Note:
       echo "Error: $url is UNREACHABLE (status: $curl_status, delay: $curl_delay ms)"
     fi
   }
+  # print current config
+  current_index() {
+    local help="Usage: pypi cur
+
+  Print current pypi index
+
+  Options:
+    -h, --help           Show this help message and exit."
+
+    if [[ $1 == "--help" || $1 == "-h" ]]; then
+      echo "$help"
+      return
+    fi
+
+    local index_url=$(pip config get global.index-url)
+    echo "Current PyPI index: $index_url"
+  }
 
   case $command in
   list) list_mirrors ;;
   use) use_mirror "$@" ;;
   ping) ping_mirror "$@" ;;
+  cur) current_index "$@" ;;
   -h|--help|help|"") print_help ;;
   *) echo "Invalid command: $command"; print_help ;;
   esac
