@@ -58,7 +58,7 @@ Note:
     echo "njtech:        https://mirrors.njtech.edu.cn/pypi/web/simple/"       # Nanjing Tech University
     echo "nyist:         https://mirrors.njtech.edu.cn/pypi/web/simple/"       # Nanyang Institute of Technology
     echo "sjtu:          https://mirror.sjtu.edu.cn/pypi/web/simple/"          # Shanghai Jiao Tong University
-    echo "zju:           https://mirrors.zju.edu.cn/pypi/web/simple/"          # Zhejiang University
+    # echo "zju:           https://mirrors.zju.edu.cn/pypi/web/simple/"          # Zhejiang University
     echo "jlu:           https://mirrors.jlu.edu.cn/pypi/web/simple/"          # Jilin University
     echo "testpypi:      https://test.pypi.org/simple/"                        # Test PyPI
   }
@@ -93,7 +93,7 @@ Note:
     njtech) index_url="https://mirrors.njtech.edu.cn/pypi/web/simple/"; trusted_host="mirrors.njtech.edu.cn" ;;
     nyist) index_url="https://mirrors.njtech.edu.cn/pypi/web/simple/"; trusted_host="mirrors.njtech.edu.cn" ;;
     sjtu) index_url="https://mirror.sjtu.edu.cn/pypi/web/simple/"; trusted_host="mirror.sjtu.edu.cn" ;;
-    zju) index_url="https://mirrors.zju.edu.cn/pypi/web/simple/"; trusted_host="mirrors.zju.edu.cn" ;;
+    # zju) index_url="https://mirrors.zju.edu.cn/pypi/web/simple/"; trusted_host="mirrors.zju.edu.cn" ;;
     jlu) index_url="https://mirrors.jlu.edu.cn/pypi/web/simple/"; trusted_host="mirrors.jlu.edu.cn" ;;
     nwafu) index_url="https://mirrors.nwafu.edu.cn/pypi/"; trusted_host="mirrors.nwafu.edu.cn" ;;
     *) echo "Unknown mirror: $shortname"; return 1 ;;
@@ -134,7 +134,7 @@ Note:
     njtech) url="https://mirrors.njtech.edu.cn/pypi/web/simple/" ;;
     nyist) url="https://mirrors.njtech.edu.cn/pypi/web/simple/" ;;
     sjtu) url="https://mirror.sjtu.edu.cn/pypi/web/simple/" ;;
-    zju) url="https://mirrors.zju.edu.cn/pypi/web/simple/" ;;
+    # zju) url="https://mirrors.zju.edu.cn/pypi/web/simple/" ;;
     jlu) url="https://mirrors.jlu.edu.cn/pypi/web/simple/" ;;
     nwafu) url="https://mirrors.nwafu.edu.cn/pypi/" ;;
     *) url=$shortname_or_url ;;
