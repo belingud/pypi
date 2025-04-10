@@ -145,7 +145,8 @@ Note:
       return 1
     fi
 
-    read -r curl_status curl_delay < <(curl -o /dev/null -s -w "%{http_code} %{time_total}" "$url")
+    # -I only receive header, --max-time 5s set timeout to 5s
+    read -r curl_status curl_delay < <(curl -o /dev/null -s -I -w "%{http_code} %{time_total}" --max-time 5 "$url")
 
     curl_delay=$(printf "%.2f" "$(echo "$curl_delay * 1000" | bc)")
     local max_status=300
