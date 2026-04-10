@@ -18,7 +18,7 @@
 
 ## 简介
 
-这是一个用于管理PyPI镜像的 oh-my-zsh 插件。该插件提供了几个便捷的命令，允许用户列出可用的PyPI镜像、切换镜像，以及测试镜像的网络连通性。
+这是一个用于管理 PyPI 镜像的 oh-my-zsh 插件。该插件提供了几个便捷的命令，允许用户列出可用的 PyPI 镜像、切换 `pip` 和 `uv` 的镜像，以及测试镜像的网络连通性。
 
 ## 安装
 
@@ -48,13 +48,27 @@ plugins=(... pypi ...)
 2. **切换镜像**
 
     ```shell
-    pypi use <shortname>
+    pypi use <shortname> [--pip|--uv|--all]
     ```
 
-   使用指定的镜像，<shortname> 是镜像的简写名。例如：
+   使用指定的镜像，`<shortname>` 是镜像的简写名。目标参数说明如下：
+
+   - `--pip`：只修改 `pip`，默认值
+   - `--uv`：只修改 `uv` 的用户级配置
+   - `--all`：同时修改 `pip` 和 `uv`
+
+   例如：
 
     ```shell
     pypi use aliyun
+    ```
+
+    ```shell
+    pypi use aliyun --uv
+    ```
+
+    ```shell
+    pypi use aliyun --all
     ```
 
 3. **测试镜像连通性**
@@ -74,11 +88,28 @@ plugins=(... pypi ...)
    pypi ping https://pypi.org/simple/
    ```
 
+4. **查看当前配置**
+
+   ```shell
+   pypi cur [--pip|--uv|--all]
+   ```
+
+   查看当前 `pip` 和/或 `uv` 的镜像配置。例如：
+
+   ```shell
+   pypi cur
+   ```
+
+   ```shell
+   pypi cur --all
+   ```
+
 ### 命令详情
 
 - `pypi list` 列出支持的 PyPI 镜像及其 URL。
-- `pypi use <shortname>` 切换到指定的 PyPI 镜像。
+- `pypi use <shortname> [--pip|--uv|--all]` 切换到指定的 PyPI 镜像。
 - `pypi ping <shortname|url>` 测试指定镜像或 URL 的网络连通性。
+- `pypi cur [--pip|--uv|--all]` 查看当前 `pip` 和/或 `uv` 的镜像配置。
 
 ### 例子
 
@@ -94,10 +125,28 @@ pypi list
 pypi use aliyun
 ```
 
+只切换 `uv` 用户级配置到阿里云镜像：
+
+```shell
+pypi use aliyun --uv
+```
+
+同时切换 `pip` 和 `uv` 到清华镜像：
+
+```shell
+pypi use tsinghua --all
+```
+
 测试清华大学镜像的连通性：
 
 ```shell
 pypi ping tsinghua
+```
+
+查看当前 `pip` 和 `uv` 配置：
+
+```shell
+pypi cur --all
 ```
 
 ## 支持的镜像
@@ -116,8 +165,12 @@ pypi ping tsinghua
 
 ## 注意事项
 
-ping 命令接受镜像简写名或直接 URL。
-use 命令需要提供有效的镜像简写名。
+- `ping` 命令接受镜像简写名或直接 URL。
+- `use` 命令需要提供有效的镜像简写名。
+- `pypi use <shortname>` 默认只修改 `pip`；如需修改 `uv`，请显式使用 `--uv` 或 `--all`。
+- `uv` 只管理用户级配置文件：`${XDG_CONFIG_HOME:-~/.config}/uv/uv.toml`。
+- 如果 `uv` 配置文件不存在，插件会自动创建；如果已存在索引相关配置，插件会将索引相关项规范化为单镜像模式，并保留其他非索引配置。
+- `uv` 的项目级配置、环境变量和命令行参数都可能覆盖用户级配置。
 
 ## 帮助
 

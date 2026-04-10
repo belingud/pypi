@@ -18,7 +18,7 @@
 
 ## Introduction
 
-This is a plugin for oh-my-zsh to manage PyPI mirrors. The plugin provides several convenient commands to list available PyPI mirrors, switch mirrors, and test mirror connectivity.
+This is a plugin for oh-my-zsh to manage PyPI mirrors. The plugin provides several convenient commands to list available PyPI mirrors, switch mirrors for `pip` and `uv`, and test mirror connectivity.
 
 ## Installation
 
@@ -48,13 +48,27 @@ plugins=(... pypi ...)
 2. **Switch Mirrors**
 
     ```shell
-    pypi use <shortname>
+    pypi use <shortname> [--pip|--uv|--all]
     ```
 
-   Switch to the specified mirror, where `<shortname>` is the mirror's short name. For example:
+   Switch to the specified mirror, where `<shortname>` is the mirror's short name. The target flags are:
+
+   - `--pip`: update `pip` only, the default
+   - `--uv`: update the user-level `uv` config only
+   - `--all`: update both `pip` and `uv`
+
+   For example:
 
     ```shell
     pypi use aliyun
+    ```
+
+    ```shell
+    pypi use aliyun --uv
+    ```
+
+    ```shell
+    pypi use aliyun --all
     ```
 
 3. **Test Mirror Connectivity**
@@ -74,11 +88,28 @@ plugins=(... pypi ...)
    pypi ping https://pypi.org/simple/
    ```
 
+4. **Show Current Configuration**
+
+   ```shell
+   pypi cur [--pip|--uv|--all]
+   ```
+
+   Show the current mirror configuration for `pip` and/or `uv`. For example:
+
+   ```shell
+   pypi cur
+   ```
+
+   ```shell
+   pypi cur --all
+   ```
+
 ### Command Details
 
 - `pypi list` lists all supported PyPI mirrors and their URLs.
-- `pypi use <shortname>` switches to the specified PyPI mirror.
+- `pypi use <shortname> [--pip|--uv|--all]` switches to the specified PyPI mirror.
 - `pypi ping <shortname|url>` tests the network connectivity of the specified mirror or URL.
+- `pypi cur [--pip|--uv|--all]` shows the current mirror configuration for `pip` and/or `uv`.
 
 ### Examples
 
@@ -94,10 +125,28 @@ Switch to the Aliyun mirror:
 pypi use aliyun
 ```
 
+Switch only the user-level `uv` config to the Aliyun mirror:
+
+```shell
+pypi use aliyun --uv
+```
+
+Switch both `pip` and `uv` to the Tsinghua mirror:
+
+```shell
+pypi use tsinghua --all
+```
+
 Test the connectivity of the Tsinghua mirror:
 
 ```shell
 pypi ping tsinghua
+```
+
+Show the current `pip` and `uv` configuration:
+
+```shell
+pypi cur --all
 ```
 
 ## Supported Mirrors
@@ -118,6 +167,10 @@ More mirrors can be viewed by running `pypi list`.
 
 - The `ping` command accepts both mirror short names and direct URLs.
 - The `use` command requires a valid mirror short name.
+- `pypi use <shortname>` updates `pip` only by default. Use `--uv` or `--all` to update `uv`.
+- `uv` is managed via the user-level config file at `${XDG_CONFIG_HOME:-~/.config}/uv/uv.toml`.
+- If the `uv` config file does not exist, the plugin creates it. If index-related settings already exist, the plugin normalizes those settings into a single-mirror configuration while preserving non-index settings.
+- Project-level `uv` config, environment variables, and CLI flags can override the user-level config.
 
 ## Help
 
